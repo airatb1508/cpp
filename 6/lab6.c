@@ -42,11 +42,11 @@ void pech_sp(struct el_sp *p) {
 
 void delKEl(struct el_sp **p, unsigned k) {
 	struct el_sp *i;
-  int n = 0;
-  for(i = *p; n < k && i != NULL; i = *p, n++){
-    *p = i->sled;
-    free(i);
-  }
+	int n = 0;
+	for(i = *p; n < k && i != NULL; i = *p, n++){
+		*p = i->sled;
+		free(i);
+	}
 }
 
 int main() {
@@ -63,12 +63,12 @@ int main() {
 		scanf("%s", t_id);
 		vkl(&p, t_id);
 	}
-  printf("\nСписок:\n");
+	printf("\nСписок:\n");
 	pech_sp(p);
-  printf("\nВведите сколько элементов нужно удалить: ");
+	printf("\nВведите сколько элементов нужно удалить: ");
 	scanf("%u", &k);
 	delKEl(&p, k);
 	printf("\nСписок после удаления %u первых\n", k);
-	pech_sp(p);
-  return 0;
+	pech_sp(p);	
+	return 0;
 }
