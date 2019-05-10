@@ -1,3 +1,6 @@
+/* Вариант №1е
+ * удалить k первых элементов
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,43 +35,40 @@ void pech_sp(struct el_sp *p) {
 		printf("Список пуст\n");
 	else {
 		struct el_sp *i;
-		printf("Список:\n");
 		for (i = p; i != NULL; i = i->sled)
 			printf("%s\n", i->id);
 	}
 }
 
-void delLastEl(struct el_sp **p) {
-	struct el_sp *i, *last = NULL, *pre = NULL;
-	for (i = *p; i != NULL; pre = last, last = i, i = i->sled);
-	if (*p != last) {
-		pre->sled = NULL;
-		free(last);
-	}
-	else {
-		free(*p);
-		*p = NULL;
-	}
+void delKEl(struct el_sp **p, unsigned k) {
+	struct el_sp *i;
+  int n = 0;
+  for(i = *p; n < k && i != NULL; i = *p, n++){
+    *p = i->sled;
+    free(i);
+  }
 }
 
 int main() {
 	struct el_sp  *p;
-	unsigned n;
-	unsigned i;
+	unsigned n, k;
 	char t_id[MAXDL];
 
-	printf("\nВведите количество элементов\nn = ");
+	printf("\nВведите количество элементов: ");
 	scanf("%u", &n);
 	p = NULL;
-	printf("Введите идентификаторы\n");
-	printf("(После каждого нажимайте <Enter> )\n\n");
-	for (i = 0; i < n; i++) {
+	printf("\nВведите идентификаторы\n");
+	printf("(После каждого нажимайте <Enter> )\n");
+	for (int i = 0; i < n; i++) {
 		scanf("%s", t_id);
 		vkl(&p, t_id);
 	}
+  printf("\nСписок:\n");
 	pech_sp(p);
-	delLastEl(&p);
-	printf("\nСписок после удаления последнего элемента\n");
+  printf("\nВведите сколько элементов нужно удалить: ");
+	scanf("%u", &k);
+	delKEl(&p, k);
+	printf("\nСписок после удаления %u первых\n", k);
 	pech_sp(p);
   return 0;
 }

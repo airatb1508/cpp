@@ -1,8 +1,13 @@
+/* Вариант №4б
+ * записать в массив А все идентификаторы списка начинающиеся с заданной буквы
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 #define MAXDL 9
+
+char A[MAXDL][MAXDL];
 
 struct el_sp{
   char  id[MAXDL];
@@ -14,7 +19,8 @@ void vkl(struct el_sp **p, char t_id[]){
   pt = malloc(sizeof(struct el_sp));
   strcpy(pt->id, t_id);
   if (*p == NULL || strcmp(pt->id, (*p)->id) < 0){
-    pt->sled = *p;*p = pt;
+    pt->sled = *p;
+    *p = pt;
   }
   else{
     k = *p;
@@ -32,29 +38,41 @@ void pech_sp(struct el_sp *p){
   for (i = p; i != NULL; i = i->sled)puts(i->id);
 }
 
+int oneLet(struct el_sp *p, char let){
+  struct el_sp *i;
+  int f = 0;
+  for (i = p; i != NULL; i = i->sled){
+    if(i->id[0] == let){
+      strcpy(A[f], i->id);
+      f++;
+    }
+  }
+  return(f);
+}
+
 int main(){
   setlocale(LC_ALL, "ru");
-  struct el_sp  *p;
-  unsigned n;
-  unsigned i;
-  int k;
-  char newId[MAXDL];
-  char t_id[MAXDL];
+  struct el_sp *p;
+  p = NULL;
+  int k, len, n, f;
+  char newId[MAXDL], t_id[MAXDL], let;
   struct el_sp *e;
-  int len;
+  printf("\nВведите букву: ");
+  scanf("%c", &let);
+  getchar();
   printf("\nВведите число идентификаторов\nn = ");
   scanf("%u", &n);
   getchar();
-  p = NULL;
   printf("Введите идентификаторы\n");
-  printf("(После каждого нажимайте <Enter> )\n\n");
-  for (i = 0; i < n; i++){
-    gets(t_id);
-    if(strcmp(t_id[0], let) == 0) vkl(&p, t_id);
+  printf("(После каждого нажимайте <Enter> )\n");
+  for (int i = 0; i < n; i++){
+    scanf("%s", t_id);
+    vkl(&p, t_id);
   }
   pech_sp(p);
-  printf("\nВведите номер элемента, id которого вы хоите изменить\nk = ");
-  scanf("%d", &k);
-  pech_sp(p);
-  printf("\n\nНажмите на любую кнопку для завершения\n");
+  f = oneLet(p, let);
+  printf("\nМассив A:\n");
+  if(f) for(int y = 0; y<f; y++) printf("%s\n", A[y]);
+  else printf("Пустой\n");
+  return 0;
 }
