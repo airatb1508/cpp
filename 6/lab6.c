@@ -1,6 +1,3 @@
-/* Вариант №1з
- * удалить последний элемент списка
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,10 +29,10 @@ void  vkl(struct el_sp **p, char t_id[]) {
 
 void pech_sp(struct el_sp *p) {
 	if (p == NULL)
-		printf("Ñïèñîê ïóñò\n");
+		printf("Список пуст\n");
 	else {
 		struct el_sp *i;
-		printf("Ñïèñîê:\n");
+		printf("Список:\n");
 		for (i = p; i != NULL; i = i->sled)
 			printf("%s\n", i->id);
 	}
