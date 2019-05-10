@@ -1,3 +1,6 @@
+/* Вариант №4а
+ * вывод студентов со ср. баллом меньше 4.0
+ */
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>

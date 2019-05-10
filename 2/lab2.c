@@ -1,3 +1,4 @@
+/* Вариант №2: strcmp */
 #include <string.h>
 #include <stdio.h>
 

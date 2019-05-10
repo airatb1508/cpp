@@ -1,3 +1,6 @@
+/* Вариант №1з
+ * удалить последний элемент списка
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
