@@ -78,7 +78,7 @@ void Stud(EL_TAB * tab, int n)
 		tab[j].fio[14] = '\0';
 		if (tab[j].oc[4] == 2)
 		{
-      d++;
+			d++;
 			printf("%s ", tab[j].fio);
 			for (i = 0; i != 5; i++)
 				printf(" %i", tab[j].oc[i]);
