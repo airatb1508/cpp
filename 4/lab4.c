@@ -85,7 +85,7 @@ void Stud(EL_TAB * tab, int n)
 			printf("\n");
 		}
 	}
-  if(d == 0)
-    printf("NaN");
+	if(d == 0)
+		printf("NaN");
 	_getch();
 }
