@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #define MAXDL 9
 
 struct el_sp {
@@ -53,6 +54,7 @@ int main() {
 	struct el_sp  *p;
 	unsigned n, k;
 	char t_id[MAXDL];
+	setLocale(LC_ALL, "ru");
 
 	printf("\nВведите количество элементов: ");
 	scanf("%u", &n);
