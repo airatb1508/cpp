@@ -1,79 +1,91 @@
 /* Вариант №4а
- * вывод студентов со ср. баллом меньше 4.0
+ * вывод студентов с последней оценкой '2'
  */
-#include <stdio.h>
-#include <conio.h>
-#include <string.h>
-#include <locale.h>
-#define MAX 30
+#include <stdio.h> 
+#include <conio.h> 
+#include <string.h> 
+#define MAX 30 
 
-struct STUDENT {
-	char fio[15];
-	char oc[7];
+struct STUDENT
+{
+	char fio[15]; 
+	char oc[7]; 
 };
-struct EL_TAB {
-	char fio[15];
-	int oc[5];
-	float srball;
+struct EL_TAB
+{
+	char fio[15];   
+	int oc[5]; 
 };
+ 
+void PechTab(EL_TAB * tab, int n);
+void Stud(EL_TAB * tab, int n);
 
-void PechTab(struct EL_TAB * tab, int n);
-void Stud(struct EL_TAB * tab, int n);
 
-int main() {
-	setlocale(LC_ALL, "ru");
-	FILE *f;
-	struct STUDENT tz;
-	struct EL_TAB tab[MAX];
-	int n = 0, i;
-	float s;
-	fopen_s(&f, "st.txt", "r");
-	if (f == NULL) {
-		puts("File not found");
-		return 1;
+int main()
+{
+	FILE *f; 
+	STUDENT tz; 
+	EL_TAB tab[MAX]; 
+	int n; 
+	int i;
+	fopen_s(&f, "st4.txt", "r");
+	if (f == NULL)
+	{
+		puts("NO st4.txt");
+		_getch();
+		return 0;
 	}
-	while (fgets((char *)&tz, sizeof(struct STUDENT), f) != NULL) {
-		for (i = 0, s = 0; i < 5; i++) {
+	
+	n = 0;
+	while (fgets((char *)&tz, sizeof(struct STUDENT), f) != NULL)
+	{
+		for (i = 0; i < 5; i++)
+		{
 			int ocenka = tz.oc[i] - '0';
 			tab[n].oc[i] = ocenka;
-			s += ocenka;
 		}
 		tz.fio[14] = '\0';
-		strcpy_s(tab[n].fio, 15, tz.fio);
-		tab[n++].srball = s / 5;
+		strcpy_s(tab[n].fio, tz.fio);
+		n++;
 	}
 	fclose(f);
 	PechTab(tab, n);
-	puts("\n");
-	puts("Students with sr.ball < 4.0");
 	Stud(tab, n);
-	_getch();
 	return 0;
-}
-
-void PechTab(struct EL_TAB * tab, int n) {
-	int j;
-	puts("\nName        Sr.ball");
-	puts("-----------------------");
-	for (j = 0; j < n; j++) {
-		printf("%s  %.1f\n", tab[j].fio, tab[j].srball);
+	_getch();
+} 
+void PechTab(EL_TAB * tab, int n)
+{
+	int j, i;
+	puts("\n Studenty ");
+	puts("------------------------------");
+	for (j = 0; j < n; j++)
+	{
+		tab[j].fio[14] = '\0';
+		printf("%s ", tab[j].fio);
+		for (i = 0; i < 5; i++)
+			printf(" %i", tab[j].oc[i]);
+		printf("\n");
 	}
 }
-
-void Stud(struct EL_TAB * tab, int n) {
-	int k = 0;
-	puts("Name       Mark      Sr.ball");
-	puts("-----------------------------------");
-	for (int j = 0; j < n; j++) {
-		if (tab[j].srball < 4.0) {
-			printf("%s \t", tab[j].fio);
-			for (int i = 0; i < 5; i++)
-				printf("%d ", tab[j].oc[i]);
-			printf("  %.1f\n", tab[j].srball);
-			k++;
+void Stud(EL_TAB * tab, int n) 
+{
+	int j, i, d = 0;
+	puts("\n Studenty s poslednei dvojkoi");
+	puts("------------------------------");
+	for (j = 0; j < n; j++)
+	{
+		tab[j].fio[14] = '\0';
+		if (tab[j].oc[4] == 2)
+		{
+      d++;
+			printf("%s ", tab[j].fio);
+			for (i = 0; i != 5; i++)
+				printf(" %i", tab[j].oc[i]);
+			printf("\n");
 		}
 	}
-	if (k == 0)
-		printf("empty set\n");
-	return;
+  if(d == 0)
+    printf("NaN");
+	_getch();
 }
