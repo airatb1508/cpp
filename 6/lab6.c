@@ -54,7 +54,7 @@ int main() {
 	struct el_sp  *p;
 	unsigned n, k;
 	char t_id[MAXDL];
-	setLocale(LC_ALL, "ru");
+	setlocale(LC_ALL, "ru");
 
 	printf("\nВведите количество элементов: ");
 	scanf("%u", &n);
