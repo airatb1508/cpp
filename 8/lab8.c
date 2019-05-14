@@ -15,7 +15,7 @@ void rPrint(char *toPrint){
 }
 
 void getAns(char *prim){
-  char let[MAXDL]; // стек аперандов
+  char let[MAXDL]; // стек операндов
   int letCounter = -1;
   int r = 1;
   for(int i = 0; i < MAXDL && prim[i] != ' ' && prim[i] != '\0'; i++){
