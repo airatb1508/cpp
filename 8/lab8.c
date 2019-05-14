@@ -43,3 +43,4 @@ int main() {
 
 // abc*+def+/-
 // ab*cd/+e-
+// http://primat.org/news/obratnaja_polskaja_zapis/2016-04-09-1181
