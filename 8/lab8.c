@@ -1,6 +1,3 @@
-/* Вариант №2а
- * Условие: //Возможно напишу позже
- */
 #include <stdio.h>
 #include <locale.h>
 #include <string.h>
