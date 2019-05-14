@@ -6,40 +6,51 @@
 #include <string.h>
 #define MAXDL 21
 
-void rPrint(char *toPrint){
-  for(int i = 0; i < 3; i++){
-    if ('0' <= toPrint[i] && toPrint[i] <= '9') printf(" R%c", toPrint[i]);
-    else printf(" %c", toPrint[i]);
-  }
-  printf("\n");
-}
-
-void getAns(char *prim){
-  char let[MAXDL]; // стек аперандов
-  int letCounter = -1;
-  int r = 1;
-  for(int i = 0; i < MAXDL && prim[i] != ' ' && prim[i] != '\0'; i++){
-    if('a' <= prim[i] && prim[i] <= 'z')
-      let[++letCounter] = prim[i];
-    else if(prim[i] == '+' || prim[i] == '-' || prim[i] == '*' || prim[i] == '/'){
-      printf("R%d =", r);
-      char go[3] = {let[letCounter - 1], prim[i], let[letCounter - 0]};
-      rPrint(go);
-      let[letCounter-- - 1] = r++ + '0';
-    }
-  }
-  return;
-}
-
 int main() {
-  setlocale(LC_ALL, "ru");
-  char prim[MAXDL];
-  printf("Введите выражение в постфиксной (обратной польской) записи:\n");
-  scanf("%s", prim);
-  printf("\nПоследовательность элементарных присваиваний:\n");
-  getAns(prim);
+	setlocale(LC_ALL, "ru");
+	char start[MAXDL];
+	char end[MAXDL];
+	printf("Введите выражение:\n");
+	scanf("%s", start);
+
+	int pr[MAXDL], pos = 0, p = -1, tmp;
+	char op[MAXDL], el;
+	for(int i = 0; start[i] != '\0' && i < MAXDL; i++){
+		tmp = 0;
+		el = start[i];
+		printf("%c\n", el);
+		if('a' <= el && el <= 'z'){
+			end[pos] = el;
+			pos++;
+		}
+		else if(el == '+' || el == '-' || el == '*' || el == '/' || el == ' '){
+			p++;
+			op[p] = el;
+			if(el == '+' || el == '-') pr[p] = 1;
+			else if (el == ' ') pr[p] = 0;
+			else pr[p] = 2;
+			printf("op:");
+			for(int j = 0; j <= p; j++) printf(" %c", op[j]);
+			printf("\npr:");
+			for(int j = 0; j <= p; j++) printf(" %d", pr[j]);
+			printf("\n");
+		}
+		while(p > 0 && pr[p] <= pr[p-1]){
+			end[pos] = op[p-1];
+			pos++;
+			op[p-1] = op[p];
+			pr[p-1] = pr[p];
+			p--;
+			tmp++;
+		}
+		if (tmp != 0 && pr[p] == 0) break;
+		printf("op:");
+		for(int j = 0; j <= p; j++) printf(" %c", op[j]);
+		printf("\npr:");
+		for(int j = 0; j <= p; j++) printf(" %d", pr[j]);
+		printf("\n");
+	}
+	
+	printf("\nПоследовательность элементарных присваиваний:\n%s\n", end);
 	return 0;
 }
-
-// abc*+def+/-
-// ab*cd/+e-
